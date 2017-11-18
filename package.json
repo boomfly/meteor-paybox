@@ -1,0 +1,37 @@
+{
+  "name": "meteor-paybox",
+  "version": "0.0.1",
+  "description": "Прием оплаты через платежный шлюз Paybox для Meteor.JS",
+  "main": "lib/paybox.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "./scripts/compile.sh"
+  },
+  "keywords": [
+    "meteor",
+    "paybox",
+    "meteor",
+    "payment",
+    "прием",
+    "оплаты"
+  ],
+  "author": "Ivan Chalyk",
+  "license": "ISC",
+  "dependencies": {
+    "grunt": "1.0.0",
+    "chai": "~1.7.2",
+    "grunt-mocha-test": "~0.6.3",
+    "grunt-contrib-coffee": "2.0.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "coffee-loader": "^0.9.0",
+    "coffeescript": "^2.0.2",
+    "webpack": "^3.8.1"
+  },
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  }
+}
