@@ -4,7 +4,7 @@
 
 ## Пример использования
 
-```
+```coffeescript
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Paybox from 'meteor-paybox'
@@ -71,7 +71,7 @@ if Meteor.isClient
 
 **пример**:
 
-```
+```coffeescript
 Paybox.onCheck (params) ->
   order = Order.findOne params.pg_order_id
   if not order
