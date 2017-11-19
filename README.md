@@ -7,7 +7,7 @@
 ```coffeescript
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Paybox from 'meteor-paybox'
+import Paybox from 'boomfly:meteor-paybox'
 
 Paybox.config
   secretKey: ''                   # Секретный ключ из настроек магазина
