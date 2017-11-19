@@ -1,7 +1,7 @@
 Package.describe({
   // Short two-sentence summary
   summary: 'Meteor Paybox.js integration',
-  version: '0.0.1',
+  version: '0.1.0',
   name: 'boomfly:meteor-paybox',
   git: 'https://github.com/boomfly/meteor-paybox'
 });

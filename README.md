@@ -2,12 +2,18 @@
 
 Прием платежей через платежный шлюз Paybox.money для Meteor.js.
 
+## Установка
+
+```shell
+meteor add boomfly:meteor-paybox
+```
+
 ## Пример использования
 
 ```coffeescript
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Paybox from 'boomfly:meteor-paybox'
+import Paybox from 'meteor/boomfly:meteor-paybox'
 
 Paybox.config
   secretKey: ''                   # Секретный ключ из настроек магазина
