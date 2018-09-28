@@ -36,13 +36,13 @@ export default class Paybox
       pg_currency: config.currency
 
     if @_onResult
-      params.pg_result_url = "#{config.siteUrl}/api/paybox?action=result&secret=#{config.secretKey}"
+      params.pg_result_url = "#{config.siteUrl}/api/#{config.callbackScriptName}?action=result&secret=#{config.secretKey}"
 
     if @_onCheck
-      params.pg_check_url = "#{config.siteUrl}/api/paybox?action=check&secret=#{config.secretKey}"
+      params.pg_check_url = "#{config.siteUrl}/api/#{config.callbackScriptName}?action=check&secret=#{config.secretKey}"
 
     if @_onFailure
-      params.pg_failure_url = "#{config.siteUrl}/api/paybox?action=failure&secret=#{config.secretKey}"
+      params.pg_failure_url = "#{config.siteUrl}/api/#{config.callbackScriptName}?action=failure&secret=#{config.secretKey}"
 
     if config.successUrl
       params.pg_success_url = config.successUrl
