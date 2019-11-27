@@ -38,7 +38,7 @@ export default class Signature
     i = 0
     for key, val of params
       i++
-      if key is 'pg_sig'
+      if key in ['pg_sig', 'action']
         continue
 
       # /**

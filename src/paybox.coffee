@@ -5,7 +5,7 @@ import { HTTP } from 'meteor/http'
 
 import {sprintf} from 'sprintf-js'
 import convert from 'xml-js'
-import { Js2Xml } from 'js2xml'
+# import { Js2Xml } from 'js2xml'
 
 import PGSignature from './signature'
 import config from './config'
@@ -36,13 +36,13 @@ export default class Paybox
       pg_currency: config.currency
 
     if @_onResult
-      params.pg_result_url = "#{config.siteUrl}/api/#{config.callbackScriptName}?action=result&secret=#{config.secretKey}"
+      params.pg_result_url = "#{config.siteUrl}/api/#{config.callbackScriptName}?action=result"
 
     if @_onCheck
-      params.pg_check_url = "#{config.siteUrl}/api/#{config.callbackScriptName}?action=check&secret=#{config.secretKey}"
+      params.pg_check_url = "#{config.siteUrl}/api/#{config.callbackScriptName}?action=check"
 
     if @_onFailure
-      params.pg_failure_url = "#{config.siteUrl}/api/#{config.callbackScriptName}?action=failure&secret=#{config.secretKey}"
+      params.pg_failure_url = "#{config.siteUrl}/api/#{config.callbackScriptName}?action=failure"
 
     if config.successUrl
       params.pg_success_url = config.successUrl
@@ -68,13 +68,13 @@ responseXml = (params, context) ->
   if context
     context.writeHead 200,
       'Content-Type': 'application/xml'
-    context.write(new Js2Xml('request', params).toString())
+    context.write(convert.js2xml({request: params}).toString())
     context.done()
     return undefined
   else
     headers:
       'Content-Type': 'application/xml'
-    body: new Js2Xml('request', params).toString()
+    body: convert.js2xml({request: params}).toString()
 
 # http://localhost:3200/api/paybox?action=result&amount=50&order_id=vYyioup4zJG9Tk5vd
 Meteor.startup ->
@@ -90,10 +90,13 @@ Meteor.startup ->
       else
         params = {}
 
-      if params.secret isnt config.secretKey
-        return
-          statusCode: 403
-          body: 'Access restricted 403'
+      pg_sig = PGSignature.make("#{config.callbackScriptName}?action=#{params.action}", params, config.secretKey);
+
+      # if pg_sig isnt params.pg_sig
+      #   console.log 'Paybox.restRoute invalid signature', pg_sig
+      #   return
+      #     statusCode: 403
+      #     body: 'Access restricted 403'
 
       switch params.action
         when 'check'
