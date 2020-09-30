@@ -8,8 +8,6 @@ Package.describe({
 
 
 Package.onUse((api) => {
-  api.versionsFrom('1.6');
-
   api.use('underscore', 'server');
   api.use('ecmascript', 'server');
   api.use('coffeescript', 'server');
