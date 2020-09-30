@@ -12,7 +12,7 @@ Package.onUse((api) => {
 
   api.use('underscore', 'server');
   api.use('ecmascript', 'server');
-  api.use('coffeescript@2.0.2_1', 'server');
+  api.use('coffeescript', 'server');
   // api.imply('coffeescript', 'server');
 
   api.mainModule('src/paybox.coffee', 'server');
@@ -22,7 +22,7 @@ Package.onTest((api) => {
   // Sets up a dependency on this package.
   api.use('underscore', 'server');
   api.use('ecmascript', 'server');
-  api.use('coffeescript@2.0.2_1', 'server');
+  api.use('coffeescript', 'server');
   api.use('boomfly:meteor-paybox');
   // Specify the source code for the package tests.
   api.addFiles('test/test.coffee', 'server');
