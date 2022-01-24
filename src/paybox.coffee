@@ -23,7 +23,7 @@ export default class Paybox
     params.pg_salt = Random.id()
     params.pg_sig = PGSignature.make(script, params, config.secretKey);
     try
-      result = HTTP.post "https://api.paybox.money/#{script}", data: params
+      result = HTTP.post "https://api.paybox.money/#{script}", {params}
       # console.log 'Paybox.call', result
       result = convert.xml2js result.content, compact: true
       if cb then cb(null, result.response)
