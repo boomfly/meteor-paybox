@@ -3,9 +3,9 @@ import { Random } from 'meteor/random'
 import { check, Match } from 'meteor/check'
 import { HTTP } from 'meteor/http'
 
-import {sprintf} from 'sprintf-js'
-import convert from 'xml-js'
+# import convert from 'xml-js'
 # import { Js2Xml } from 'js2xml'
+import {XMLBuilder, XMLParser} from 'fast-xml-parser'
 
 import PGSignature from './signature'
 import config from './config'
@@ -25,7 +25,10 @@ export default class Paybox
     try
       result = HTTP.post "https://api.paybox.money/#{script}", {params}
       # console.log 'Paybox.call', result
-      result = convert.xml2js result.content, compact: true
+      xmlParser = new XMLParser()
+      # result = convert.xml2js result.content, compact: true
+      result = xmlParser.parse(result.content)
+      console.log('paybox.call', result)
       if cb then cb(null, result.response)
     catch e
       if cb then cb(e, null)
@@ -66,16 +69,20 @@ Rest = new Restivus
 
 responseXml = (params, context) ->
   params.pg_sig = PGSignature.make(config.callbackScriptName, params, config.secretKey)
+
+  xmlBuilder = new XMLBuilder()
+  response = xmlBuilder.build({response: params})
+
   if context
     context.writeHead 200,
       'Content-Type': 'application/xml'
-    context.write(convert.js2xml({request: params}).toString())
+    context.write(response)
     context.done()
     return undefined
   else
     headers:
       'Content-Type': 'application/xml'
-    body: convert.js2xml({request: params}).toString()
+    body: response
 
 # http://localhost:3200/api/paybox?action=result&amount=50&order_id=vYyioup4zJG9Tk5vd
 Meteor.startup ->
@@ -118,6 +125,6 @@ Meteor.startup ->
       response.pg_salt = params.pg_salt
 
       if config.debug
-        console.log 'Paybox.restRoute.response', response
+        console.log 'Paybox.restRoute.response', params.action, response
 
       responseXml response

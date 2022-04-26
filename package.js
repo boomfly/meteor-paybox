@@ -28,6 +28,7 @@ Package.onTest((api) => {
 // This lets you use npm packages in your package:
 Npm.depends({
   'sprintf-js': '1.1.1',
-  'xml-js': '1.6.11',
+  // 'xml-js': '1.6.11',
+  'fast-xml-parser': '4.0.7'
   // 'js2xml': '1.0.8'
 });
