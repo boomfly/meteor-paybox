@@ -11,6 +11,8 @@ Package.onUse((api) => {
   api.use('underscore', 'server');
   api.use('ecmascript', 'server');
   api.use('coffeescript', 'server');
+  api.use('fetch', 'server');
+  api.use('webapp', 'server');
   // api.imply('coffeescript', 'server');
 
   api.mainModule('src/paybox.coffee', 'server');
