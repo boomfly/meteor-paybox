@@ -112,10 +112,10 @@ class Paybox
 
   _registerHandler: (pathname, shouldUpdateWebhook = true) ->
     config = @config()
-    handlerIndex = WebApp.rawConnectHandlers.stack.findIndex (i) => i.handler is @_handler
+    handlerIndex = WebApp.handlers.router.stack.findIndex (i) => i.handler is @_handler
     if handlerIndex > 0
-      WebApp.rawConnectHandlers.stack.splice handlerIndex, 1
-    WebApp.rawConnectHandlers.use pathname, @_handler
+      WebApp.handlers.router.stack.splice handlerIndex, 1
+    WebApp.handlers.use pathname, @_handler
 
   # Webhooks handler
   _handler: (req, res, next) =>
